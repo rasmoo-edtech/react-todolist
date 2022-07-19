@@ -37,7 +37,7 @@ export function App() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1>todo list</h1>
+        <h1>TODOLIST</h1>
 
         <form onSubmit={handleSubmit}>
           <input
