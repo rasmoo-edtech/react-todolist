@@ -1,0 +1,52 @@
+.task {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 16px;
+  border-radius: 0 6px 6px 0;
+  border-left: 5px solid var(--secondary);
+  background: var(--background-light);
+}
+
+.task__checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: white;
+}
+
+.task__checkbox:hover {
+  cursor: pointer;
+}
+
+.task__name {
+  font-size: 18px;
+  margin-right: auto;
+}
+
+.task__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  color: var(--terciary);
+
+  opacity: 0.7;
+
+  background: transparent;
+  border: 1px solid var(--terciary);
+
+  transition: all 0.2s;
+}
+
+.task__button:hover {
+  color: var(--secondary);
+  border-color: var(--secondary);
+  opacity: 1;
+}
+
+
+

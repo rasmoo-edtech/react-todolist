@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 24px 24px 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 24px;
+  
+  width: 100%;
+  max-width: 700px;
+}
+
+.content h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.content form {
+  display: flex;
+  column-gap: 12px;
+}
+
+.content form input {
+  flex: 1;
+  padding: 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--background-light);
+}
+
+.content form button {
+  border: 0;
+  border-radius: 6px;
+  padding: 0 12px;
+  background: var(--secondary);
+}
+
+.content form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.content form button svg {
+  margin-right: 6px;
+}
