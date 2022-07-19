@@ -19,31 +19,25 @@
   text-align: center;
 }
 
-.content form {
+.footer {
   display: flex;
-  column-gap: 12px;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 6px;
 }
 
-.content form input {
-  flex: 1;
+.footer h6 {
+  font-weight: 400;
+  font-size: 18px;
   padding: 12px;
-  border: 0;
-  border-radius: 6px;
+  border-radius: 4px;
   background: var(--background-light);
 }
 
-.content form button {
-  border: 0;
-  border-radius: 6px;
-  padding: 0 12px;
+.footer h6 span {
+  font-weight: 600;
+  margin-left: 4px;
+  padding: 2px 4px;
+  border-radius: 2px;
   background: var(--secondary);
-}
-
-.content form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.content form button svg {
-  margin-right: 6px;
 }

@@ -1,59 +1,98 @@
-import { v4 as uuid } from 'uuid'
-import { useState } from "react"
-import { FaPlus } from 'react-icons/fa'
+import { useEffect, useMemo, useState } from "react"
 
+import { Form } from './components/Form'
+import { Input } from "./components/Input"
 import { Tasks } from './components/Tasks'
 
 import styles from './styles/app.module.css'
 
+const LOCALSTORAGE_TASKS_KEY = 'todolist-tasks'
+
 export function App() {
-  const [tasks, setTasks] = useState([
-    { id: uuid(), name: 'Estudar react', completed: false },
-    { id: uuid(), name: 'Lavar o carro', completed: true },
-    { id: uuid(), name: 'Aprender componentização', completed: false },
-  ])
+  const [tasks, setTasks] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [searchTaskName, setSearchTaskName] = useState('')
 
-  const [taskName, setTaskName] = useState('')
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    
-    if(!!taskName) {
-      const newTask = {
-        id: uuid(),
-        name: taskName,
-        completed: false,
-      }
-
-      setTasks(currentState => [...currentState, newTask])
-      setTaskName('')
-    }
+  const onAddTask = (newTask) => {
+    setTasks(currentState => [...currentState, newTask])
+    setSearchTaskName('')
   }
 
   const onRemoveTask = (taskId) => {
     setTasks(currentState => currentState.filter(task => task.id !== taskId))
   }
 
+  const onChangeCompleted = (taskId) => {
+    const taskIndex = tasks.findIndex(task => task.id === taskId)
+
+    const updatedTask = [...tasks]
+    updatedTask[taskIndex].completed = !updatedTask[taskIndex].completed
+    
+    setTasks(updatedTask)
+  }
+
+  // Esse bloco de código é disparado toda a vez que o array de
+  // tasks sofrer alguma alteração(add, remove, update)
+  useEffect(() => {
+    if(!isLoading) {
+      localStorage.setItem(LOCALSTORAGE_TASKS_KEY, JSON.stringify(tasks))
+    }
+  }, [tasks])
+
+  // Esse bloco de código é disparado ao carregar a página do usuário
+  useEffect(() => {
+    const tasksLocal = localStorage.getItem(LOCALSTORAGE_TASKS_KEY)
+    setTasks(JSON.parse(tasksLocal))
+    setIsLoading(false)
+  }, [])
+
+  const handleTermSearch = (e) => {
+    const valueTerm = e.target.value.toLocaleLowerCase()
+    setSearchTaskName(valueTerm)
+  }
+
+  const totalTasks = useMemo(() => {
+    return tasks.length
+  }, [tasks])
+
+  const totalCompletedTasks = useMemo(() => {
+    return tasks.filter(task => task.completed).length
+  })
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <h1>TODOLIST</h1>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={taskName}
-            placeholder="Nome da tarefa"
-            onChange={event => setTaskName(event.target.value)}
-          />
-          
-          <button type="submit" disabled={taskName === ''}>
-            <FaPlus size={12} />
-            Adicionar
-          </button>
-        </form>
+        <Form onSubmit={onAddTask} />
 
-        <Tasks tasks={tasks} onRemoveTask={onRemoveTask} />
+        <hr />
+
+        <Input
+          type="text"
+          value={searchTaskName}
+          onChange={handleTermSearch}
+          placeholder="Pesquisar uma tarefa"
+        />
+
+        <Tasks
+          tasks={tasks}
+          searchTaskName={searchTaskName}
+          onRemoveTask={onRemoveTask}
+          onChangeCompletedTask={onChangeCompleted}
+        />
+
+        <footer className={styles.footer}>
+          <h6>
+            Total de tarefas:
+            <span>{totalTasks}</span>
+          </h6>
+
+          <h6>
+            Total de tarefas concluidas:
+            <span>{totalCompletedTasks}</span>
+          </h6>
+        </footer>
       </div>
 
     </div>

@@ -9,6 +9,14 @@
   background: var(--background-light);
 }
 
+.task.completed {
+  opacity: 0.6;
+}
+
+.task.completed span {
+  text-decoration: line-through;  
+}
+
 .task__checkbox {
   width: 16px;
   height: 16px;
@@ -25,19 +33,11 @@
 }
 
 .task__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
   color: var(--terciary);
 
+  border: 0;
   opacity: 0.7;
-
   background: transparent;
-  border: 1px solid var(--terciary);
 
   transition: all 0.2s;
 }
@@ -47,6 +47,3 @@
   border-color: var(--secondary);
   opacity: 1;
 }
-
-
-

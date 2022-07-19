@@ -1,15 +1,15 @@
-import { FaTrash } from 'react-icons/fa'
+import { FaTrashAlt } from 'react-icons/fa'
 
 import styles from './index.module.css'
 
-export function Task({ id, name, completed, onRemove }) {
+export function Task({ id, name, completed, onRemove, onChangeCompleted }) {
   return (
-    <li className={styles.task}>
+    <li className={`${styles.task} ${completed ? styles.completed : ''}`}>
       <input
         type="checkbox"
         checked={completed}
         className={styles.task__checkbox}
-        onChange={e => console.log(e.target.value)}
+        onChange={e => onChangeCompleted(id)}
       />
 
       <span className={styles.task__name}>
@@ -21,7 +21,7 @@ export function Task({ id, name, completed, onRemove }) {
         className={styles.task__button}
         onClick={() => onRemove(id)}
       >
-        <FaTrash size={12} />
+        <FaTrashAlt size={16} />
       </button>
     </li>
   )
