@@ -42,7 +42,7 @@ export function App() {
   // Esse bloco de código é disparado ao carregar a página do usuário
   useEffect(() => {
     const tasksLocal = localStorage.getItem(LOCALSTORAGE_TASKS_KEY)
-    setTasks(JSON.parse(tasksLocal))
+    tasksLocal && setTasks(JSON.parse(tasksLocal))
     setIsLoading(false)
   }, [])
 
